@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <v-main> Приветствую </v-main>
+    <v-main> 
+      Приветствую 
+      <router-view></router-view>
+    </v-main>
   </v-app>
 </template>
 
