@@ -2,8 +2,8 @@
   <v-app>
     <v-app-bar>
       <div class="container">
-        <AuthorizedTools />
-        <UnauthorizedTools />
+        <AuthorizedTools v-if="!isAuthorized"/>
+        <UnauthorizedTools v-else/>
       </div>
     </v-app-bar>
     <v-main>
@@ -16,6 +16,7 @@
 import AuthorizedTools from './components/AuthorizedTools.vue';
 import UnauthorizedTools from './components/UnauthorizedTools.vue';
 import './global/style/style.css'
+import { isAuthorized } from './global/utils'
 
 export default {
   components: { AuthorizedTools, UnauthorizedTools },
@@ -27,6 +28,9 @@ export default {
     };
   },
   computed: {
+    isAuthorized() {
+      return isAuthorized();
+    }
   }
 };
 </script>
