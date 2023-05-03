@@ -1,0 +1,1 @@
+export type { IStoreModule, ICreateStoreOptions } from './storeTypes';
