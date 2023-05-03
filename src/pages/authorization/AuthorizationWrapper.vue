@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <AuthorizationView/>
-    </div>
+    <AuthorizationView/>
 </template>
 
 <script lang="ts">

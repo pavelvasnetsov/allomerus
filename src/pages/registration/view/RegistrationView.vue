@@ -73,7 +73,7 @@
         </v-snackbar>
     </v-form>
 </template>
-<script>
+<script lang="ts">
 import axios from 'axios';
 import { mapMutations } from 'vuex';
 
@@ -91,15 +91,15 @@ export default {
             show1: false,
             show2: false,
             rules: [
-                value => !!value || 'Поле обязательное',
-                value => (value && value.length >= 4) || 'Минимум 4 символа',
+                (value: string) => !!value || 'Поле обязательное',
+                (value: string) => (value && value.length >= 4) || 'Минимум 4 символа',
             ],
             repeatPasswordRules: [
-                value => this.password === value || 'Пароли должны совпадать'
+                (value: string | any) => this.password === value || 'Пароли должны совпадать'
             ],
             emailRules: [
-                value => !!value || 'Поле обязательное',
-                value => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) || 'Некорректный адрес электронной почты'
+                (value: string) => !!value || 'Поле обязательное',
+                (value: string) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) || 'Некорректный адрес электронной почты'
             ],
             snackbar: false,
             errMsg: ''
