@@ -8,11 +8,12 @@ const routes: Array<RouteRecordRaw> = [
     ...authorizationRouter,
     ...meRouter,
     ...registrationRouter,
-    ...sketchesRouter
+    ...sketchesRouter,
+    {
+        path: '/:catchAll(.*)',
+        redirect: '/authorization'
+    }
 ];
-
-console.log(routes);
-
 
 const router = createRouter({
     routes,
