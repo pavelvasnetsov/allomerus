@@ -13,10 +13,10 @@
 </template>
 
 <script lang="ts">
+import { mapGetters } from 'vuex';
 import AuthorizedTools from './components/AuthorizedTools.vue';
 import UnauthorizedTools from './components/UnauthorizedTools.vue';
 import './global/style/style.css'
-import { isAuthorized } from './global/utils'
 
 export default {
   components: { AuthorizedTools, UnauthorizedTools },
@@ -28,9 +28,10 @@ export default {
     };
   },
   computed: {
-    isAuthorized() {
-      return isAuthorized();
-    }
+    ...mapGetters('checkingAuthorization', {
+      isAuthorized: 'isAuthorized'
+    }),
+
   }
 };
 </script>

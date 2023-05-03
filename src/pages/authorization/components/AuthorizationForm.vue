@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import AuthorizationTools from './AuthorizationTools.vue';
 //@ts-ignore
 import { isAuthorized } from '@/global/utils';
@@ -45,12 +45,16 @@ export default {
         ...mapActions('authorization', {
             loginAction: 'login'
         }),
+        ...mapMutations('checkingAuthorization', {
+            setIsAuthorized: 'SET_IS_AUTHORIZED'
+        }),
         async loginRequest() {
             //@ts-ignore
             const { valid } = await this.$refs.loginForm.validate();
 
             if (valid) {
                 await this.loginAction({login: this.login, password: this.password});
+                this.setIsAuthorized(true);
                 this.$router.push('/sketches');
             }
         }
