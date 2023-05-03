@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import RegistrationTools from './RegistrationTools.vue';
 //@ts-ignore
 import { isAuthorized } from '@/global/utils';
@@ -115,6 +115,9 @@ export default {
         ...mapActions('registration', {
             registrationAction: 'registration'
         }),
+        ...mapMutations('checkingAuthorization', {
+            setIsAuthorized: 'SET_IS_AUTHORIZED'
+        }),
 
         async registrationRequest() {
             //@ts-ignore
@@ -130,6 +133,7 @@ export default {
                     password: this.password,
                     role: this.role
                 });
+                this.setIsAuthorized(true);
                 this.$router.push('/sketches');
             }
         }
