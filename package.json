@@ -21,6 +21,7 @@
   "devDependencies": {
     "@types/webfontloader": "^1.0.0",
     "@vitejs/plugin-vue": "^4.1.0",
+    "sass": "^1.62.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
