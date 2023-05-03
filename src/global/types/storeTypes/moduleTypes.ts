@@ -5,11 +5,3 @@ export interface IStoreModule {
     mutations: Object;
     actions: Object;
 }
-
-export interface ICreateStoreOptions {
-    modules: IModules
-}
-
-interface IModules {
-    [key: string]: IStoreModule;
-}

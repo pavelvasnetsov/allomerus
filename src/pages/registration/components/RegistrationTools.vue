@@ -1,13 +1,13 @@
 <template>
-    <div class="auth-btns">
+    <div class="reg-btns">
         <v-btn
             color="green"
-            @click="$router.push('/registration')"
-        >К регистрации</v-btn>
+            @click="$router.push('/authorization')"
+        >К авторизации</v-btn>
         <v-btn
             type="submit"
             color="blue"
-        >Войти</v-btn>
+        >Зарегистрироваться</v-btn>
     </div>
 </template>
 
@@ -17,10 +17,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.auth-btns {
+<style lang="scss">
+.reg-btns {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 </style>

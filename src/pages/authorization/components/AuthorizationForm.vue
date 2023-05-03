@@ -3,7 +3,7 @@
         <v-text-field
             v-model="login"
             class="auth__input"
-            label="Логин"
+            label="Имя пользователя"
             :rules="rules"
             hide-details="auto"
         ></v-text-field>
@@ -28,8 +28,8 @@ import AuthorizationTools from './AuthorizationTools.vue';
 import { isAuthorized } from '@/global/utils';
 
 export default {
-    components: { AuthorizationTools },
     name: 'AuthorizationForm',
+    components: { AuthorizationTools },
     data() {
         return {
             password: '',
@@ -50,7 +50,7 @@ export default {
             const { valid } = await this.$refs.loginForm.validate();
 
             if (valid) {
-                await this.loginAction(this.login, this.password);
+                await this.loginAction({login: this.login, password: this.password});
                 this.$router.push('/sketches');
             }
         }
