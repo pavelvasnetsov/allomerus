@@ -1,17 +1,18 @@
-export interface IRegistrationRequest {
+import { ErrorResponse } from "./errorResponseTypes";
+
+export interface UpdateRequest {
     username: string;
-    email: string;
-    password?: string;
     firstName: string;
     lastName: string;
     bio: string;
-    role?: string;
-}
+    roles: string[];
+    avatar: string;
+};
 
-export interface IRegistrationResponse {
+interface UpdateResponseSuccess {
     id: number;
-    username: string;
     email: string;
+    username: string;
     firstName: string;
     lastName: string;
     status: string;
@@ -19,4 +20,8 @@ export interface IRegistrationResponse {
     avatar: string;
     loginSource: string;
     roles: string[];
-}
+};
+
+export type UpdateResponse =
+    UpdateResponseSuccess |
+    ErrorResponse;

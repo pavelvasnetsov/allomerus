@@ -1,4 +1,4 @@
-export { UserService } from './api-services';
+export { default as UserService } from './usersService';
 export type { 
     RegisterRequest,
     RegisterResponse, 
@@ -7,4 +7,4 @@ export type {
     UpdateRequest,
     UpdateResponse,
     UserResponse
-} from './api-services';
+} from './types';
