@@ -1,1 +1,0 @@
-export type { IRegistrationRequest, IRegistrationResponse } from './RegistrationRequest';
