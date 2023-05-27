@@ -11,7 +11,7 @@ interface UserResponseSuccess {
     avatar: string;
     loginSource: string;
     roles: string[];
-};
+}
 
 export type UserResponse =
     UserResponseSuccess |

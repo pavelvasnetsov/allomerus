@@ -1,4 +1,5 @@
 export { UserService } from './user-service';
+export { ContentService } from './content-service';
 export type { 
     RegisterRequest,
     RegisterResponse, 
@@ -8,3 +9,14 @@ export type {
     UpdateResponse,
     UserResponse
 } from './user-service';
+
+export type {
+    Tag,
+    Sketch,
+    UpdateSketchPayload,
+    CreateSketchPayload,
+    SketchesListQueryParams,
+    MeSketchesListQueryParams,
+    CreateTagPayload,
+    UpdateTagPayload
+} from './content-service';

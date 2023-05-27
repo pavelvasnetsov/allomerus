@@ -7,7 +7,7 @@ export interface UpdateRequest {
     bio: string;
     roles: string[];
     avatar: string;
-};
+}
 
 interface UpdateResponseSuccess {
     id: number;
@@ -20,7 +20,7 @@ interface UpdateResponseSuccess {
     avatar: string;
     loginSource: string;
     roles: string[];
-};
+}
 
 export type UpdateResponse =
     UpdateResponseSuccess |

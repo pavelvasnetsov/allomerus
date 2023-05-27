@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosResponse, CreateAxiosDefaults, InternalAxios
 
 export default function createApiInstance(API_URL: string): AxiosInstance {
     const instanceConfig: CreateAxiosDefaults = {
-        withCredentials: true,
+        // withCredentials: true,
         baseURL: API_URL
     };
     
