@@ -1,1 +1,0 @@
-export { default as RegistrationServer } from './registrationServer';

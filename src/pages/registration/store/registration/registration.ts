@@ -1,6 +1,6 @@
-import { RegistrationServer } from "../../core";
-import { IRegistrationRequest  } from "../../core";
+import { UserService, RegisterRequest } from "@/global/api";
 import { IStoreModule } from "../../../../global/types";
+import axios from "axios";
 
 export const registration: IStoreModule = {
     namespaced: true,
@@ -14,20 +14,23 @@ export const registration: IStoreModule = {
 
     },
     actions: {
-        async registration({}, registrationRequest: IRegistrationRequest): Promise<void> {
+        async registration({}, registrationRequest: RegisterRequest): Promise<void> {
             try {
-                await RegistrationServer.registration(registrationRequest);
+                const response = await UserService.register(registrationRequest);
+                console.log(response);
+                
+                
 
-                const loginData = {
-                    login: registrationRequest.username,
-                    password: registrationRequest.password || 'password',
-                };
+                // const loginData = {
+                //     login: registrationRequest.username,
+                //     password: registrationRequest.password || 'password',
+                // };
 
-                const responseLogin = await RegistrationServer.login(loginData);
+                // const responseLogin = await UsersService.login(loginData);
 
 
-                localStorage.setItem("access_token", responseLogin.accessToken);
-                localStorage.setItem("refresh_token", responseLogin.refreshToken);
+                // localStorage.setItem("access_token", responseLogin.accessToken);
+                // localStorage.setItem("refresh_token", responseLogin.refreshToken);
             } catch (e) {
                 console.log(e);
             } finally {
