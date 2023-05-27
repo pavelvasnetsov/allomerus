@@ -8,7 +8,7 @@ export interface RegisterRequest {
     lastname: string;
     bio: string;
     role: string;
-};
+}
 
 interface RegisterResponseSuccess {
     id: number;
@@ -21,7 +21,7 @@ interface RegisterResponseSuccess {
     avatar: string;
     loginSource: string;
     roles: string[];
-};
+}
 
 export type RegisterResponse = 
     RegisterResponseSuccess | 

@@ -16,7 +16,9 @@ export const registration: IStoreModule = {
     actions: {
         async registration({}, registrationRequest: RegisterRequest): Promise<void> {
             try {
-                // const response = await UserService.register(registrationRequest)
+                const response = await UserService.register(registrationRequest);
+                console.log(response);
+                
                 
 
                 // const loginData = {

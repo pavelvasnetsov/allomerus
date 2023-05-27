@@ -1,13 +1,11 @@
-interface ErrorResponseBadRequest {
-    fieldName: string;
-    message: string;
-}
+type ErrorResponseBadRequest = ErrorResponseInternalServerError[];
 
 interface ErrorResponseForbidden {
     message: string;
 }
 
 interface ErrorResponseInternalServerError {
+    fieldName: string;
     message: string;
 }
 

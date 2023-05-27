@@ -1,8 +1,8 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import createApiInstance from "../createApiInstance";
-import { 
+import createApiInstance from "../utils/createApiInstance";
+import {
     RegisterRequest,
-    RegisterResponse, 
+    RegisterResponse,
     LoginRequest,
     LoginResponse,
     UpdateRequest,
@@ -16,16 +16,16 @@ const userServiceInstance: AxiosInstance = createApiInstance(API_URL);
 
 class _UserService {
     async register(body: RegisterRequest): Promise<RegisterResponse> {
-        const response: AxiosResponse = await userServiceInstance.post('/register', body); 
+        const response: AxiosResponse = await userServiceInstance.post('/register', body);
         const data: RegisterResponse = response.data;
-        
+
         return data;
     }
 
     async login(body: LoginRequest): Promise<LoginResponse>{
-        const response: AxiosResponse = await userServiceInstance.post('/login', body); 
+        const response: AxiosResponse = await userServiceInstance.post('/login', body);
         const data: LoginResponse = response.data;
-        
+
         return data;
     }
 
