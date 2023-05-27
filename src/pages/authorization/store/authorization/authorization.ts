@@ -1,6 +1,6 @@
-import { AuthorizationServer } from "../../core";
-import { ILoginRequest, ILoginResponse } from "../../core";
-import { IStoreModule } from "../../../../global/types";
+import {AuthorizationServer, ILoginResponse} from "../../core";
+import { ILoginRequest } from "../../core";
+import { IStoreModule } from "@/global/types";
 
 export const authorization: IStoreModule = {
     namespaced: true,
