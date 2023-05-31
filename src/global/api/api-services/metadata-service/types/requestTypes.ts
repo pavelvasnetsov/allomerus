@@ -14,3 +14,7 @@ export interface LikeQueryParams {
 export interface CommentQueryParams {
     sketch: string[];
 }
+
+export interface CommentPayload {
+    text: string;
+}
