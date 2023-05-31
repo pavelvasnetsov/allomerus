@@ -11,7 +11,7 @@ interface ErrorResponseInternalServerError {
     message: string;
 }
 
-export type ErrorResponse = 
+export type ErrorResponseUserService =
     ErrorResponseBadRequest |
     ErrorResponseForbidden |
     ErrorResponseInternalServerError;

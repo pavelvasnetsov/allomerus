@@ -1,5 +1,7 @@
-import { checkingAuthorization } from './checkingAuthorization';
+import {checkingAuthorization} from './checkingAuthorization';
+import {snackbar} from "@/store/main/snackbar";
 
 export const mainStore = {
-    checkingAuthorization
+    checkingAuthorization,
+    snackbar
 };

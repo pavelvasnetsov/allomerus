@@ -1,5 +1,3 @@
-import { ErrorResponse } from "./errorResponseTypes";
-
 interface UserResponseSuccess {
     id: number;
     email: string;
@@ -13,6 +11,4 @@ interface UserResponseSuccess {
     roles: string[];
 }
 
-export type UserResponse =
-    UserResponseSuccess |
-    ErrorResponse;
+export type UserResponse = UserResponseSuccess;
