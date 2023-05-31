@@ -80,7 +80,7 @@ class _ContentService {
         return response.data;
     }
 
-    async deleteTagById(id: number) {
+    async deleteTagById(id: number): Promise<string> {
         const response: AxiosResponse = await contentServiceInstance.delete(`/tags/${id}`);
 
         return response.data;

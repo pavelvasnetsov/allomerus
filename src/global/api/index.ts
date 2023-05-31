@@ -1,4 +1,4 @@
-export { UserService, ContentService } from './api-services';
+export { UserService, ContentService, MetadataService } from './api-services';
 export type { 
     RegisterRequest,
     RegisterResponse, 
@@ -14,5 +14,15 @@ export type {
     SketchesListQueryParams,
     MeSketchesListQueryParams,
     CreateTagPayload,
-    UpdateTagPayload
+    UpdateTagPayload,
+    Comment,
+    CommentCount,
+    CommentPayload,
+    Like,
+    LikeCount,
+    ReviewQueryParams,
+    CommentQueryParams,
+    LikeQueryParams,
+    ReviewPayload,
+    Review
 } from './api-services';
