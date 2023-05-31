@@ -8,7 +8,7 @@ export type {
     LoginResponse,
     UpdateRequest,
     UpdateResponse,
-    UserResponse
+    User
 } from './user-service';
 
 export type {

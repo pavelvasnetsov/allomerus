@@ -1,4 +1,4 @@
-interface UserResponseSuccess {
+export interface User {
     id: number;
     email: string;
     username: string;
@@ -10,5 +10,3 @@ interface UserResponseSuccess {
     loginSource: string;
     roles: string[];
 }
-
-export type UserResponse = UserResponseSuccess;

@@ -6,5 +6,5 @@ export type {
     LoginResponse,
     UpdateRequest,
     UpdateResponse,
-    UserResponse
+    User
 } from './types';

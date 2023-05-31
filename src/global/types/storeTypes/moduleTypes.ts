@@ -7,6 +7,6 @@ export interface IStoreModule {
 }
 
 export interface ContextParam {
-    commit: (mutationName: string, payload: any, options: any) => void;
-    dispatch: (actionName: string, payload: any, options: any) => void;
+    commit: (mutationName: string, payload: any, options?: any) => void;
+    dispatch: (actionName: string, payload: any, options?: any) => void;
 }

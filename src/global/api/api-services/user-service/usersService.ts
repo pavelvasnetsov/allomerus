@@ -7,7 +7,7 @@ import {
     RegisterResponse,
     UpdateRequest,
     UpdateResponse,
-    UserResponse
+    User
 } from "./types";
 
 const API_URL = import.meta.env.VITE_API_USERS_URL;
@@ -33,13 +33,13 @@ class _UserService {
         return response.data;
     }
 
-    async me(): Promise<UserResponse> {
+    async me(): Promise<User> {
         const response: AxiosResponse = await userServiceInstance.get('/me');
 
         return response.data;
     }
 
-    async getUserById(id: number): Promise<UserResponse> {
+    async getUserById(id: number): Promise<User> {
         const response: AxiosResponse = await userServiceInstance.get(`?id=${id}`);
 
         return response.data;
