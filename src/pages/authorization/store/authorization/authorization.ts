@@ -14,13 +14,13 @@ export const authorization: IStoreModule = {
 
     },
     actions: {
-        async login({}, loginRequest: ILoginRequest): Promise<void> {
+        async login({}, payload: ILoginRequest): Promise<void> {
             try {
-                const response: ILoginResponse = await AuthorizationServer.login(loginRequest);
+                const response: ILoginResponse = await AuthorizationServer.login(payload);
                 localStorage.setItem("access_token", response.accessToken);
                 localStorage.setItem("refresh_token", response.refreshToken);
             } catch (e) {
-                console.log(e);
+                console.error(e);
             } finally {
 
             }

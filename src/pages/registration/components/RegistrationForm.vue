@@ -124,7 +124,8 @@ export default {
             const { valid } = await this.$refs.registrationForm.validate();
 
             if (valid) {
-                await this.registrationAction({
+                try {
+                  await this.registrationAction({
                     firstName: this.firstName,
                     lastName: this.lastName,
                     username: this.username,
@@ -132,9 +133,14 @@ export default {
                     bio: this.bio,
                     password: this.password,
                     role: this.role
-                });
-                this.setIsAuthorized(true);
-                this.$router.push('/sketches');
+                  });
+                  this.setIsAuthorized(true);
+                  this.$router.push('/sketches');
+                } catch (e) {
+                  console.error(e);
+                } finally {
+
+                }
             }
         }
     },

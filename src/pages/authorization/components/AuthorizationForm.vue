@@ -42,8 +42,8 @@ export default {
         }
     },
     methods: {
-        ...mapActions('authorization', {
-            loginAction: 'login'
+        ...mapActions({
+            loginAction: 'authorization/login'
         }),
         ...mapMutations('checkingAuthorization', {
             setIsAuthorized: 'SET_IS_AUTHORIZED'

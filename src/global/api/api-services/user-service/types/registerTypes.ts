@@ -1,5 +1,3 @@
-import { ErrorResponse } from "./errorResponseTypes";
-
 export interface RegisterRequest {
     username: string;
     email: string;
@@ -23,6 +21,4 @@ interface RegisterResponseSuccess {
     roles: string[];
 }
 
-export type RegisterResponse = 
-    RegisterResponseSuccess | 
-    ErrorResponse;
+export type RegisterResponse = RegisterResponseSuccess;

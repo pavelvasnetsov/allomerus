@@ -21,7 +21,7 @@ class _UserService {
         return response.data;
     }
 
-    async login(body: LoginRequest): Promise<LoginResponse>{
+    async login(body: LoginRequest): Promise<LoginResponse> {
         const response: AxiosResponse = await userServiceInstance.post('/login', body);
 
         return response.data;
