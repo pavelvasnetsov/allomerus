@@ -1,9 +1,9 @@
-export { UserService } from './user-service';
-export { ContentService } from './content-service';
-export { MetadataService } from './metadata-service';
-export type { 
+export {UserService} from './user-service';
+export {ContentService} from './content-service';
+export {MetadataService} from './metadata-service';
+export type {
     RegisterRequest,
-    RegisterResponse, 
+    RegisterResponse,
     LoginRequest,
     LoginResponse,
     UpdateRequest,

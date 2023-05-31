@@ -1,4 +1,4 @@
-import { authorization } from "./authorization";
+import {authorization} from "./authorization";
 
 export const authorizationStore = {
     authorization

@@ -1,26 +1,20 @@
 <template>
-    <div>
-        Sketches
-    </div>
+  <div>
+    Sketches
+  </div>
 </template>
 
 <script lang="ts">
+import {isAuthorized} from "@/global/utils";
+
 export default {
-    name: 'SketchesWrapper',
+  name: 'SketchesWrapper',
 
-    data() {
-        return {
-            
-        };
-    },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
+  beforeCreate() {
+    if (!isAuthorized()) {
+      this.$router.push('/authorization');
+    }
+  },
 };
 </script>
 

@@ -1,26 +1,19 @@
 <template>
-    <div>
-        Me
-    </div>
+  <div>
+    Me
+  </div>
 </template>
 
 <script lang="ts">
+import {isAuthorized} from "@/global/utils";
+
 export default {
-    name: 'RegistrationWrapper',
-
-    data() {
-        return {
-            
-        };
-    },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
+  name: 'RegistrationWrapper',
+  beforeCreate() {
+    if (!isAuthorized()) {
+      this.$router.push('/authorization');
+    }
+  },
 };
 </script>
 

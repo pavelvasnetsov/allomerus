@@ -1,2 +1,2 @@
-export { sketchesStore } from './store';
-export { sketchesRouter } from './router';
+export {sketchesStore} from './store';
+export {sketchesRouter} from './router';

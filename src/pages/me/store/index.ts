@@ -1,3 +1,1 @@
-export const meStore = {
-
-};
+export const meStore = {};

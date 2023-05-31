@@ -1,7 +1,7 @@
-export { UserService, ContentService, MetadataService } from './api-services';
-export type { 
+export {UserService, ContentService, MetadataService} from './api-services';
+export type {
     RegisterRequest,
-    RegisterResponse, 
+    RegisterResponse,
     LoginRequest,
     LoginResponse,
     UpdateRequest,

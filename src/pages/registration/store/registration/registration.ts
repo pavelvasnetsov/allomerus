@@ -1,35 +1,27 @@
-import {UserService, RegisterRequest, LoginResponse, LoginRequest} from "@/global/api";
-import { IStoreModule } from "@/global/types";
+import {UserService, RegisterRequest, LoginRequest} from "@/global/api";
+import {ContextParam, IStoreModule} from "@/global/types";
+import {AxiosError} from "axios";
 
 export const registration: IStoreModule = {
     namespaced: true,
-    state: () => ({
-
-    }),
-    getters: {
-
-    },
-    mutations: {
-
-    },
+    state: () => ({}),
+    getters: {},
+    mutations: {},
     actions: {
-        async registration({}, registrationRequest: RegisterRequest): Promise<void> {
+        async registration({dispatch, commit}: ContextParam, registrationRequest: RegisterRequest): Promise<void> {
             try {
                 await UserService.register(registrationRequest);
 
                 const loginRequest: LoginRequest = {
-                    login: registrationRequest.username,
+                    login: registrationRequest.email,
                     password: registrationRequest.password
                 };
 
-                const loginResponse: LoginResponse = await UserService.login(loginRequest);
-
-                localStorage.setItem("access_token", loginResponse.accessToken);
-                localStorage.setItem("refresh_token", loginResponse.refreshToken);
-            } catch (e) {
-                console.error(e);
-            } finally {
-
+                dispatch('authorization/login', loginRequest, {root: true});
+            } catch (e: AxiosError | any) {
+                commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
+                commit('snackbar/SET_SHOW', true, {root: true});
+                throw new Error(e.response.data.message);
             }
         }
     }
