@@ -1,1 +1,4 @@
-export const meStore = {};
+import {me} from './me';
+export const meStore = {
+    me
+};

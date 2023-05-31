@@ -1,27 +1,18 @@
 <template>
     <div>
         <v-btn
-            @click="logout"
-        >Выйти</v-btn>
+            @click="$router.push('/authorization')"
+        >Авторизация</v-btn>
+        <v-btn
+            @click="$router.push('/registration')"
+        >Регистрация</v-btn>
     </div>
 </template>
 
 <script lang="ts">
-import { mapMutations } from 'vuex'
-
 export default {
-    name: 'AuthorizedTools',
-    methods: {
-        ...mapMutations('checkingAuthorization', {
-            setIsAuthorized: 'SET_IS_AUTHORIZED'
-        }),
-        logout() {
-            this.setIsAuthorized(false);
-            this.$router.push('/authorization');
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('refresh_token');
-        }
-    }
+    name: 'UnauthorizedTools',
+
 }
 </script>
 

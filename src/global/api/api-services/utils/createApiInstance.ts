@@ -13,7 +13,7 @@ export default function createApiInstance(API_URL: string): AxiosInstance {
             const access_token: string | null = localStorage.getItem('access_token');
 
             if (access_token !== null) {
-                config.headers.Authorization = `Bearer ${access_token}`;
+                config.headers.Authorization = `Bearer_${access_token}`;
             }
 
             return config;
