@@ -1,2 +1,2 @@
-export { registrationStore } from './store';
-export { registrationRouter } from './router';
+export {registrationStore} from './store';
+export {registrationRouter} from './router';

@@ -1,2 +1,2 @@
-export type { IStoreModule } from './moduleTypes';
-export type { ICreateStoreOptions } from './storeOptionsTypes';
+export type {IStoreModule, ContextParam} from './moduleTypes';
+export type {ICreateStoreOptions} from './storeOptionsTypes';

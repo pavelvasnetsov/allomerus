@@ -1,4 +1,4 @@
-import { IStoreModule } from "./moduleTypes";
+import {IStoreModule} from "./moduleTypes";
 
 export interface ICreateStoreOptions {
     modules: IModules

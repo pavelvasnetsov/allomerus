@@ -1,5 +1,3 @@
-import { ErrorResponse } from "./errorResponseTypes";
-
 export interface LoginRequest {
     login: string;
     password: string;
@@ -11,6 +9,4 @@ interface LoginResponseSuccess {
     refreshToken: string;
 }
 
-export type LoginResponse = 
-    LoginResponseSuccess | 
-    ErrorResponse;
+export type LoginResponse = LoginResponseSuccess;

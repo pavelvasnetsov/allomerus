@@ -4,8 +4,8 @@ import 'vuetify/styles'
 
 // Vuetify
 //@ts-ignore
-import { createVuetify } from 'vuetify'
+import {createVuetify} from 'vuetify'
 
 export default createVuetify(
-  // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
+    // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 )
