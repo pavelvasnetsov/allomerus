@@ -6,7 +6,7 @@ export type {
     LoginResponse,
     UpdateRequest,
     UpdateResponse,
-    UserResponse,
+    User,
     Tag,
     Sketch,
     UpdateSketchPayload,
