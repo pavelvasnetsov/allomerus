@@ -4,6 +4,7 @@ import {authorizationStore} from '@/pages/authorization';
 import {meStore} from '@/pages/me';
 import {registrationStore} from '@/pages/registration';
 import {sketchesStore} from '@/pages/sketches';
+import {addSketchStore} from "@/pages/add-sketch";
 import {ICreateStoreOptions} from 'src/global/types';
 import {mainStore} from './main';
 
@@ -13,6 +14,7 @@ const storeOptions: ICreateStoreOptions = {
         ...meStore,
         ...registrationStore,
         ...sketchesStore,
+        ...addSketchStore,
         ...mainStore
     }
 }

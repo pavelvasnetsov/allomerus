@@ -3,12 +3,14 @@ import {authorizationRouter} from "@/pages/authorization";
 import {meRouter} from "@/pages/me";
 import {registrationRouter} from "@/pages/registration";
 import {sketchesRouter} from "@/pages/sketches";
+import {addSketchRouter} from "@/pages/add-sketch";
 
 const routes: Array<RouteRecordRaw> = [
     ...authorizationRouter,
     ...meRouter,
     ...registrationRouter,
     ...sketchesRouter,
+    ...addSketchRouter,
     {
         path: '/:catchAll(.*)',
         redirect: '/authorization'
