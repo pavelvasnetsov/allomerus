@@ -1,4 +1,5 @@
 import axios, {AxiosInstance, AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig} from 'axios';
+import router from "@/router";
 
 export default function createApiInstance(API_URL: string): AxiosInstance {
     const instanceConfig: CreateAxiosDefaults = {
@@ -27,14 +28,12 @@ export default function createApiInstance(API_URL: string): AxiosInstance {
         async (error) => {
             const originalRequest = error.config;
 
-            if (error.response.status === 403 && error.config && !error.config._isRetry) {
+            if (error.response.status === 401 && error.config && !error.config._isRetry) {
                 originalRequest._isRetry = true;
 
                 try {
-                    const response = await axios.post(`${import.meta.env.VITE_API_USERS_URL}/users/refresh`, {
+                    const response = await axios.post(`${import.meta.env.VITE_API_USERS_URL}/refresh`, {
                         refreshToken: localStorage.getItem('refresh_token')
-                    }, {
-                        withCredentials: true
                     });
 
                     localStorage.setItem('access_token', response.data.access_token);
@@ -42,7 +41,9 @@ export default function createApiInstance(API_URL: string): AxiosInstance {
 
                     return apiInstance.request(originalRequest);
                 } catch (error) {
-                    console.log('Не авторизован');
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('refresh_token');
+                    await router.push(`/authorization`);
                 }
             }
 

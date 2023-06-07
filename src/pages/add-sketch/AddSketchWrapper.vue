@@ -1,17 +1,17 @@
 <template>
   <div>
-    <MeView />
+    <AddSketchView />
   </div>
 </template>
 
 <script lang="ts">
-import MeView from '@/pages/me/views/MeView.vue';
+import AddSketchView from '@/pages/add-sketch/views/AddSketchView.vue';
 import {isAuthorized} from "@/global/utils";
 
 export default {
-  name: 'MeWrapper',
+  name: 'AddSketchWrapper',
   components: {
-    MeView
+    AddSketchView
   },
   beforeCreate() {
     if (!isAuthorized()) {
