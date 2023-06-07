@@ -39,7 +39,19 @@ class _ContentService {
     }
 
     async createSketch(payload: CreateSketchPayload): Promise<Sketch> {
-        const response: AxiosResponse = await contentServiceInstance.post(`/sketches`, payload);
+        const form: FormData = new FormData();
+
+        form.append('access', payload.access);
+        payload.tags.forEach(tag => {
+            form.append('tags', tag);
+        });
+        form.append('name', payload.name);
+        form.append('description', payload.description);
+        payload.files.forEach(file => {
+            form.append('files', file);
+        })
+
+        const response: AxiosResponse = await contentServiceInstance.post(`/sketches`, form);
 
         return response.data;
     }

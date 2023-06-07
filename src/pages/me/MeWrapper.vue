@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import MeView from './view/MeView.vue';
+import MeView from '@/pages/me/views/MeView.vue';
 import {isAuthorized} from "@/global/utils";
 
 export default {
