@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import AddSketchView from './view/AddSketchView.vue';
+import AddSketchView from '@/pages/add-sketch/views/AddSketchView.vue';
 import {isAuthorized} from "@/global/utils";
 
 export default {

@@ -10,9 +10,15 @@
     <div>
       <v-btn
           class="authorized-tools__sketches"
+          @click="$router.push('/add-sketch')"
+      >
+        Добавить работу
+      </v-btn>
+      <v-btn
+          class="authorized-tools__sketches"
           @click="$router.push('/sketches')"
       >
-        Скетчи
+        Работы
       </v-btn>
       <v-btn
           class="authorized-tools__me"
