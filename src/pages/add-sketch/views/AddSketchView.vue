@@ -11,11 +11,15 @@
         class="add-sketch__files"
         v-model="files"
     />
-    <SketchInfo
-        class="add-sketch__info"
-        v-model:name="name"
-        v-model:description="description"
-    />
+    <v-form
+        ref="infoForm"
+    >
+      <SketchInfo
+          class="add-sketch__info"
+          v-model:name="name"
+          v-model:description="description"
+      />
+    </v-form>
     <div
         class="add-sketch__tag"
     >
@@ -64,6 +68,8 @@ export default {
       createSketchAction: 'createSketch'
     }),
     async createSketch() {
+
+
       try {
         await this.createSketchAction({
           files: this.files,
