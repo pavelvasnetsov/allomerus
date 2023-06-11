@@ -2,12 +2,12 @@ import {ContextParam, IStoreModule} from "@/global/types";
 import {ContentService, CreateSketchPayload, Sketch} from "@/global/api";
 import {AxiosError} from "axios";
 interface AddSketchState {
-    access: 'PUBLIC',
+    access: 'public',
 }
 export const addSketch: IStoreModule = {
     namespaced: true,
     state: (): AddSketchState => ({
-        access: 'PUBLIC'
+        access: 'public'
     }),
     getters: {
     },

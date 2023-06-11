@@ -41,7 +41,7 @@ export default {
   },
   async mounted() {
     await this.getSketches({
-      page: this.currentPage,
+      page: this.currentPage - 1,
       size: this.currentCount
     });
   },
@@ -54,7 +54,7 @@ export default {
     async currentPage() {
       if (this.allowChangePagination) {
         await this.getSketches({
-          page: this.currentPage,
+          page: this.currentPage - 1,
           size: this.currentCount
         });
       }
@@ -64,7 +64,7 @@ export default {
       this.currentPage = 1;
 
       await this.getSketches({
-        page: this.currentPage,
+        page: this.currentPage - 1,
         size: this.currentCount
       });
       this.allowChangePagination = true;
@@ -80,7 +80,7 @@ export default {
 
       const preparedQueryParams: SketchesListQueryParams = {};
 
-      preparedQueryParams.page = this.currentPage;
+      preparedQueryParams.page = this.currentPage - 1;
       preparedQueryParams.size = this.currentCount;
 
       if (this.name) {
