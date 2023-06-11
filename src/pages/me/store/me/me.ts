@@ -31,10 +31,10 @@ export const me: IStoreModule = {
         }
     },
     actions: {
-        async getMeInfo({ commit }: ContextParam): Promise<void> {
+        async getMeInfo({ commit }: ContextParam<AuthorizationState>): Promise<void> {
             try {
                 const response: User = await UserService.me();
-                console.log(response);
+
                 commit('SET_ME_INFO', response);
             } catch (e: AxiosError | any) {
                 commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
