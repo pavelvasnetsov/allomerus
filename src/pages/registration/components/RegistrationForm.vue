@@ -10,6 +10,7 @@
         label="Имя"
         :rules="rules"
         hide-details="auto"
+        variant="outlined"
     ></v-text-field>
     <v-text-field
         v-model="lastName"
@@ -17,6 +18,7 @@
         label="Фамилия"
         :rules="rules"
         hide-details="auto"
+        variant="outlined"
     ></v-text-field>
     <v-text-field
         v-model="username"
@@ -24,6 +26,7 @@
         label="Имя пользователя"
         :rules="rules"
         hide-details="auto"
+        variant="outlined"
     ></v-text-field>
     <v-text-field
         v-model="email"
@@ -33,6 +36,7 @@
         placeholder="example@example.com"
         :rules="emailRules"
         hide-details="auto"
+        variant="outlined"
     ></v-text-field>
     <v-textarea
         v-model="bio"
@@ -40,6 +44,7 @@
         label="Коротко о себе"
         :rules="rules"
         hide-details="auto"
+        variant="outlined"
     >
     </v-textarea>
     <v-select
@@ -48,6 +53,7 @@
         item-value="value"
         label="Роль"
         :items="roles"
+        variant="outlined"
     ></v-select>
     <v-text-field
         class="registration__input"
@@ -58,6 +64,7 @@
         :append-icon="!show1 ? 'mdi-eye' : 'mdi-eye-off'"
         :type="show1 ? 'text' : 'password'"
         @click:append="show1 = !show1"
+        variant="outlined"
     ></v-text-field>
     <v-text-field
         class="registration__input"
@@ -68,6 +75,7 @@
         :append-icon="!show2 ? 'mdi-eye' : 'mdi-eye-off'"
         :type="show2 ? 'text' : 'password'"
         @click:append="show2 = !show2"
+        variant="outlined"
     ></v-text-field>
     <RegistrationTools/>
   </v-form>
