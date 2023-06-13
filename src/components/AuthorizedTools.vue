@@ -11,6 +11,7 @@
       <v-btn
           class="authorized-tools__sketches"
           @click="$router.push('/add-sketch')"
+          v-if="isAuthor"
       >
         Добавить работу
       </v-btn>
@@ -24,17 +25,26 @@
           class="authorized-tools__me"
           @click="$router.push('/me')"
       >
-        Личный кабинет
+        Мой аккаунт
       </v-btn>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {mapMutations} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
+import {Roles} from "@/global/types";
 
 export default {
   name: 'AuthorizedTools',
+  computed: {
+    ...mapGetters('me', {
+      roles: 'roles'
+    }),
+    isAuthor() {
+      return this.roles.includes(Roles.author);
+    }
+  },
   methods: {
     ...mapMutations('checkingAuthorization', {
       setIsAuthorized: 'SET_IS_AUTHORIZED'

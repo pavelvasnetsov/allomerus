@@ -4,7 +4,7 @@ interface Tag {
 }
 
 export interface Sketch {
-    id: string,
+    id: string;
     authorEmail: string;
     authorName: string;
     access: string;

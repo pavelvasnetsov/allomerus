@@ -1,8 +1,15 @@
 <template>
   <div class="container me">
     <div class="me__header">
-      <div class="me__title">Личный кабинет</div>
-      <v-btn class="me__edit-btn">редактировать</v-btn>
+      <div class="me__title">Мой аккаунт</div>
+      <div class="me__tools">
+        <v-btn
+            v-if="isAuthor"
+            class="me__sketches-btn"
+            @click="$router.push('/sketches/my')"
+        >мои работы</v-btn>
+        <v-btn class="me__edit-btn">редактировать профиль</v-btn>
+      </div>
     </div>
     <div class="me__info info">
       <div class="info__avatar">
@@ -23,6 +30,9 @@
       <div class="info__bio">
         <span class="info__subtitle">Обо мне:</span> {{ me.bio }}
       </div>
+      <div class="info__role">
+        <span class="info__subtitle">Моя роль:</span> {{ role }}
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +40,7 @@
 <script lang="ts">
 
 import {mapActions, mapGetters} from "vuex";
+import {Roles} from "@/global/types";
 
 export default {
   name: 'MeView',
@@ -38,8 +49,19 @@ export default {
   },
   computed: {
     ...mapGetters('me', {
-      me: 'meInfo'
-    })
+      me: 'meInfo',
+      roles: 'roles',
+    }),
+    role() {
+      if (this.roles.includes(Roles.author)) {
+        return 'Автор';
+      }
+
+      return 'Пользователь'
+    },
+    isAuthor() {
+      return this.roles.includes(Roles.author);
+    }
   },
   methods: {
     ...mapActions('me', {
@@ -63,6 +85,10 @@ export default {
 
   &__title {
     font-size: 30px;
+  }
+
+  &__sketches-btn {
+    margin-right: 10px;
   }
 
   &__edit-btn {

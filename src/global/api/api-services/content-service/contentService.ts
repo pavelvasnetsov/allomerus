@@ -8,7 +8,7 @@ import {
     SketchesListQueryParams,
     MeSketchesListQueryParams,
     CreateTagPayload,
-    UpdateTagPayload
+    UpdateTagPayload, SketchesListResponse
 } from './types';
 import { toQueryString } from "@/global/api/api-services/utils/toQueryString";
 
@@ -16,7 +16,7 @@ const API_URL = import.meta.env.VITE_API_CONTENT_URL;
 
 const contentServiceInstance: AxiosInstance = createApiInstance(API_URL);
 class _ContentService {
-    async getSketches(query: SketchesListQueryParams): Promise<Sketch[]> {
+    async getSketches(query: SketchesListQueryParams): Promise<SketchesListResponse> {
         const queryParams = toQueryString(query);
 
         const response: AxiosResponse = await contentServiceInstance.get(`/sketches${queryParams}`);
@@ -24,7 +24,7 @@ class _ContentService {
         return response.data;
     }
 
-    async getSketchById(id: number): Promise<Sketch> {
+    async getSketchById(id: string): Promise<Sketch> {
         const response: AxiosResponse = await contentServiceInstance.get(`/sketches/${id}`);
 
         return response.data;

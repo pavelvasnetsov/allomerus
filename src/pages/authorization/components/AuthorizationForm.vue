@@ -52,6 +52,9 @@ export default {
     ...mapActions('authorization', {
       loginAction: 'login'
     }),
+    ...mapActions('me', {
+      getMeInfo: 'getMeInfo'
+    }),
     ...mapMutations('checkingAuthorization', {
       setIsAuthorized: 'SET_IS_AUTHORIZED'
     }),
@@ -61,6 +64,7 @@ export default {
 
       if (valid) {
         await this.loginAction({login: this.login, password: this.password});
+        await this.getMeInfo();
       }
     }
   },

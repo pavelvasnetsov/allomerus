@@ -11,9 +11,10 @@
           class="sketch-content__card"
           v-for="sketch in sketches"
           :key="sketch.id"
-          :image-src="sketch.files[0]"
+          :image-src="sketch.files?.[0]"
           :title="sketch.name"
           :description="sketch.description"
+          @click="$router.push(`/sketches/${sketch.id}`)"
       />
     </div>
   </div>
