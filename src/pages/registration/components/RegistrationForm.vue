@@ -131,7 +131,9 @@ export default {
     ...mapActions('registration', {
       registrationAction: 'registration'
     }),
-
+    ...mapActions('me', {
+      getMeInfo: 'getMeInfo'
+    }),
     async registrationRequest() {
       //@ts-ignore
       const {valid} = await this.$refs.registrationForm.validate();
@@ -146,6 +148,8 @@ export default {
           password: this.password,
           role: this.role
         });
+
+        await this.getMeInfo();
       }
     }
   },

@@ -23,7 +23,8 @@ export const me: IStoreModule = {
         }
     }),
     getters: {
-        meInfo: (state: AuthorizationState): User => state.meInfo
+        meInfo: (state: AuthorizationState): User => state.meInfo,
+        roles: (state: AuthorizationState): string[] => state.meInfo.roles
     },
     mutations: {
         SET_ME_INFO(state: AuthorizationState, payload: User): void {

@@ -11,8 +11,8 @@
         :sketches="sketches"
     />
     <SketchesPagination
-        v-if="sketches.length"
-        :total-pages="10"
+        v-if="sketchesCount"
+        :total-pages="totalPages"
         v-model:current-page="currentPage"
         v-model:current-count="currentCount"
     />
@@ -39,34 +39,57 @@ export default {
       allowChangePagination: true
     }
   },
+  created() {
+    this.name = this.$route.query.name instanceof Array ? this.$route.query.name.join(' ') : (this.$route.query.name ?? '');
+    this.tags = this.$route.query.tags instanceof Array ? this.$route.query.tags : (this.$route.query.tags ? [this.$route.query.tags] : []);
+    this.currentPage = +this.$route.query?.page + 1 || 1;
+    this.currentCount = +this.$route.query?.size || 30;
+  },
   async mounted() {
-    await this.getSketches({
-      page: this.currentPage - 1,
-      size: this.currentCount
-    });
+    await this.getSketches(this.preparedQueryParams);
   },
   computed: {
     ...mapGetters('sketches', {
-      sketches: 'sketches'
-    })
+      sketches: 'sketches',
+      sketchesCount: 'sketchesCount'
+    }),
+    totalPages() {
+      return Math.ceil(this.sketchesCount / this.currentCount);
+    },
+    preparedNameParam() {
+      return this.name.replace(/\s+/g, ' ').split(' ');
+    },
+
+    preparedQueryParams() {
+      const preparedQueryParams: SketchesListQueryParams = {};
+
+      preparedQueryParams.page = this.currentPage - 1;
+      preparedQueryParams.size = this.currentCount;
+
+      if (this.name) {
+        preparedQueryParams.name = this.preparedNameParam;
+      }
+
+      if (this.tags.length) {
+        preparedQueryParams.tags = this.tags.map(tag => tag);
+      }
+
+      return preparedQueryParams;
+    }
   },
   watch: {
     async currentPage() {
       if (this.allowChangePagination) {
-        await this.getSketches({
-          page: this.currentPage - 1,
-          size: this.currentCount
-        });
+        await this.getSketches(this.preparedQueryParams);
+        this.$router.push({path: this.$route.path, query: this.preparedQueryParams});
       }
     },
     async currentCount() {
       this.allowChangePagination = false;
       this.currentPage = 1;
 
-      await this.getSketches({
-        page: this.currentPage - 1,
-        size: this.currentCount
-      });
+      await this.getSketches(this.preparedQueryParams);
+      this.$router.push({path: this.$route.path, query: this.preparedQueryParams});
       this.allowChangePagination = true;
     }
   },
@@ -78,22 +101,9 @@ export default {
       this.currentPage = 1;
       this.currentCount = 30;
 
-      const preparedQueryParams: SketchesListQueryParams = {};
+      await this.getSketches(this.preparedQueryParams);
 
-      preparedQueryParams.page = this.currentPage - 1;
-      preparedQueryParams.size = this.currentCount;
-
-      if (this.name) {
-        //@ts-ignore
-        const preparedName = this.name.replace(/\s+/g, ' ');
-        preparedQueryParams.name = preparedName.split(' ');
-      }
-
-      if (this.tags.length) {
-        preparedQueryParams.tags = this.tags.map(tag => tag);
-      }
-
-      await this.getSketches(preparedQueryParams);
+      this.$router.push({path: this.$route.path, query: this.preparedQueryParams});
     }
   }
 };

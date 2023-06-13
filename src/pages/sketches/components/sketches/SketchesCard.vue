@@ -2,9 +2,18 @@
   <div class="sketch-card">
     <div class="sketch-card__img-block">
       <v-img
-          :src="imageSrc"
+          :src="imageUrl"
           height="200px"
-      ></v-img>
+      >
+        <template v-slot:placeholder>
+          <div class="d-flex align-center justify-center fill-height">
+            <v-progress-circular
+                color="grey-lighten-4"
+                indeterminate
+            ></v-progress-circular>
+          </div>
+        </template>
+      </v-img>
     </div>
     <div class="sketch-card__content">
       <div class="sketch-card__name">
@@ -23,7 +32,7 @@ export default {
   props: {
     imageSrc: {
       type: String,
-      default: 'https://topzero.com/wp-content/uploads/2020/06/topzero-products-Malmo-Matte-Black-TZ-PE458M-image-003.jpg'
+      default: ''
     },
     title: {
       type: String,
@@ -32,6 +41,13 @@ export default {
     description: {
       type: String,
       default: 'Описание работы'
+    }
+  },
+  computed: {
+    imageUrl() {
+      return this.imageSrc ?
+          `${import.meta.env.VITE_API_CONTENT_URL}/sketches/resource?url=${this.imageSrc}`
+          : 'https://topzero.com/wp-content/uploads/2020/06/topzero-products-Malmo-Matte-Black-TZ-PE458M-image-003.jpg';
     }
   }
 };

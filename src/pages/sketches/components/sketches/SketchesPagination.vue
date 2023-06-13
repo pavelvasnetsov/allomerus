@@ -3,7 +3,9 @@
       class="pagination"
   >
     <v-pagination
+        v-if="totalPages > 1"
         :length="totalPages"
+        :total-visible="5"
         :modelValue="currentPage"
         @update:modelValue="$emit('update:current-page', $event)"
         class="pagination__pages"

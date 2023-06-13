@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import {mapActions} from "vuex";
+import {mapActions, mapMutations} from "vuex";
 
 export default {
   name: "TagNew",
@@ -71,6 +71,10 @@ export default {
     ...mapActions('tag', {
       createTag: 'createTag'
     }),
+    ...mapMutations('snackbar', {
+      setShow: 'SET_SHOW',
+      setMessage: 'SET_MESSAGE'
+    }),
     async createNewTag() {
       //@ts-ignore
       const {valid} = await this.$refs.tagForm.validate();
@@ -83,6 +87,12 @@ export default {
 
           this.tag = '';
           this.dialog = false;
+          await this.$refs.tagForm.reset();
+          this.setMessage('Новый тег успешно добавлен')
+          this.setShow({
+            show: true,
+            color: 'green'
+          });
         } catch (e) {
         }
       }
