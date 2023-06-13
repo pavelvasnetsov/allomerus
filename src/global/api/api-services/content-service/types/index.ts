@@ -7,5 +7,6 @@ export type {
     SketchesListQueryParams,
     MeSketchesListQueryParams,
     CreateTagPayload,
-    UpdateTagPayload
+    UpdateTagPayload,
+    SketchesListResponse
 } from './requestTypes';

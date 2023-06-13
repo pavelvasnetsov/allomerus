@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import {mapGetters} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import UnauthorizedTools from './components/UnauthorizedTools.vue';
 import AuthorizedTools from './components/AuthorizedTools.vue';
 import './global/style/style.css'
@@ -35,6 +35,20 @@ export default {
         this.$router.push('/authorization');
       }
     }
+  },
+  async mounted() {
+    if (this.isAuthorized) {
+      try {
+        await this.getMeInfo();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  },
+  methods: {
+    ...mapActions('me', {
+      getMeInfo: 'getMeInfo'
+    })
   }
 };
 </script>

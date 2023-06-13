@@ -16,7 +16,7 @@
     >
       <SketchInfo
           class="add-sketch__info"
-          v-model:name="name"
+          v-model:name.trim="name"
           v-model:description="description"
       />
     </v-form>
@@ -34,8 +34,13 @@
     <v-btn
         color="blue"
         @click="createSketch"
+        :loading="isCreateLoading"
+        :disabled="isCreateLoading"
     >
       Добавить работу
+      <template v-slot:loader>
+        <v-progress-circular indeterminate></v-progress-circular>
+      </template>
     </v-btn>
   </div>
 </template>
@@ -45,7 +50,7 @@ import SketchFiles from '../components/Sketch/SketchFiles.vue';
 import SketchInfo from "@/pages/add-sketch/components/Sketch/SketchInfo.vue";
 import TagAutocomplete from "@/pages/add-sketch/components/Tag/TagAutocomplete.vue";
 import TagNew from "@/pages/add-sketch/components/Tag/TagNew.vue";
-import {mapActions} from "vuex";
+import {mapActions, mapMutations} from "vuex";
 
 export default {
   name: "AddSketchView",
@@ -60,30 +65,49 @@ export default {
       files: [],
       name: '',
       description: '',
-      tags: []
+      tags: [],
+      isCreateLoading: false
     };
   },
   methods: {
     ...mapActions('addSketch', {
       createSketchAction: 'createSketch'
     }),
+    ...mapMutations('snackbar', {
+      setShow: 'SET_SHOW',
+      setMessage: 'SET_MESSAGE'
+    }),
     async createSketch() {
-
-
       try {
-        await this.createSketchAction({
-          files: this.files,
-          name: this.name,
-          description: this.description,
-          tags: this.tags
-        });
+        const {valid} = await this.$refs.infoForm.validate();
 
-        this.files = [];
-        this.name = '';
-        this.description = '';
-        this.tags = [];
+        if (valid) {
+          this.isCreateLoading = true;
+
+          await this.createSketchAction({
+            files: this.files,
+            name: this.name,
+            description: this.description,
+            tags: this.tags
+          });
+
+          this.files = [];
+          this.name = '';
+          this.description = '';
+          this.tags = [];
+
+          await this.$refs.infoForm.reset();
+
+          this.setMessage('Работа успешно добавлена');
+          this.setShow({
+            show: true,
+            color: 'green'
+          });
+        }
       } catch (e) {
 
+      } finally {
+        this.isCreateLoading = false;
       }
 
     }

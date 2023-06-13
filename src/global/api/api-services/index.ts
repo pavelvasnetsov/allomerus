@@ -17,6 +17,7 @@ export type {
     UpdateSketchPayload,
     CreateSketchPayload,
     SketchesListQueryParams,
+    SketchesListResponse,
     MeSketchesListQueryParams,
     CreateTagPayload,
     UpdateTagPayload
