@@ -1,4 +1,4 @@
 export const enum Roles {
-    consumer = 'ROLE_CONSUMER',
+    consumer = 'ROLE_CUSTOMER',
     author = 'ROLE_AUTHOR'
 }

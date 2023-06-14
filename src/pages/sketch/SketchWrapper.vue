@@ -4,21 +4,21 @@
 
 <script lang="ts">
 import SketchView from "@/pages/sketch/views/SketchView.vue";
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
+import {isAuthorized} from "@/global/utils";
 
 export default {
   name: "SketchWrapper",
   components: {SketchView},
-  async mounted() {
-    try {
-      await this.getSketch(this.$route.params.sketchId);
-    } catch (e) {
-      console.error(e);
+  created() {
+    if (!isAuthorized()) {
+      this.$router.push('/authorization');
     }
+    this.setIsAuthorized(isAuthorized());
   },
   methods: {
-    ...mapActions('sketch', {
-      getSketch: 'getSketch'
+    ...mapMutations('checkingAuthorization', {
+      setIsAuthorized: 'SET_IS_AUTHORIZED'
     })
   }
 };

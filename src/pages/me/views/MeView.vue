@@ -5,14 +5,11 @@
       <div class="me__tools">
         <v-btn
             v-if="isAuthor"
+            variant="text"
             class="me__sketches-btn"
             color="blue"
             @click="$router.push('/sketches/my')"
         >мои работы</v-btn>
-        <v-btn
-            class="me__edit-btn"
-            @click="$emit('change:edit-mode', true)"
-        >редактировать профиль</v-btn>
       </div>
     </div>
     <div class="me__info info">
@@ -44,16 +41,38 @@
         <span class="info__subtitle">Моя роль:</span> {{ role }}
       </div>
     </div>
+    <div class="me__edit-tools">
+      <v-btn
+          class="me__edit-btn"
+          @click="$emit('change:edit-mode', true)"
+      >редактировать профиль</v-btn>
+      <v-btn
+          color="red"
+          @click="deleteMe"
+          :loading="deleteLoader"
+      >
+        Удалить аккаунт
+        <template v-slot:loader>
+          <v-progress-circular indeterminate></v-progress-circular>
+        </template>
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import {Roles} from "@/global/types";
+import {tr} from "vuetify/locale";
 
 export default {
   name: 'MeView',
+  data() {
+    return {
+      deleteLoader: false
+    }
+  },
   computed: {
     ...mapGetters('me', {
       me: 'meInfo',
@@ -73,6 +92,32 @@ export default {
       return this.me.avatar ?
           `${import.meta.env.VITE_API_USERS_URL}/me/resource?url=${this.me.avatar}`
           : '';
+    }
+  },
+  methods: {
+    ...mapActions('me', {
+      deleteMeAction: 'deleteMe'
+    }),
+    ...mapMutations('snackbar', {
+      setShow: 'SET_SHOW',
+      setMessage: 'SET_MESSAGE'
+    }),
+    async deleteMe() {
+      try {
+        this.deleteLoader = true;
+
+        await this.deleteMeAction();
+        await this.$router.push('/authorization');
+        this.setMessage('Ваш профиль успешно удален');
+        this.setShow({
+          show: true,
+          color: 'green'
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.deleteLoader = false;
+      }
     }
   }
 };
@@ -98,11 +143,17 @@ export default {
   &__sketches-btn {
     margin-right: 10px;
   }
+  
+  &__edit-tools {
+    display: flex;
+  }
 
   &__edit-btn {
+    margin-right: 20px;
   }
 
   &__info {
+    margin-bottom: 50px;
   }
 }
 

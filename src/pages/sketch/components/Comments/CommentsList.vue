@@ -7,11 +7,27 @@
             v-for="comment in comments"
             :key="comment.id"
         >
-          <div class="item__header">
-            {{ comment.user }}
+          <div class="item__content">
+            <div class="item__header">
+              {{ comment.user }}
+            </div>
+            <div class="item__text">
+              {{ comment.text }}
+            </div>
           </div>
-          <div class="item__text">
-            {{ comment.text }}
+          <div class="item__tools">
+            <v-btn
+                v-if="comment.user === me"
+                class="item__delete-btn"
+                icon="$close"
+                variant="text"
+                @click="deleteHandler(comment.id)"
+                :loader="deleteLoader && comment.id === deletingComment"
+            >
+              <template v-slot:loader>
+                <v-progress-circular indeterminate></v-progress-circular>
+              </template>
+            </v-btn>
           </div>
         </li>
       </ul>
@@ -26,6 +42,25 @@ export default {
     comments: {
       type: Array,
       default: []
+    },
+    me: {
+      type: String,
+      default: ""
+    },
+    deleteLoader: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      deletingComment: ''
+    }
+  },
+  methods: {
+    deleteHandler(id) {
+      this.deletingComment = id;
+      this.$emit('delete:comment', id)
     }
   }
 }
@@ -50,6 +85,11 @@ export default {
 .item {
   font-size: 16px;
   line-height: 150%;
+  display: flex;
+
+  &__content {
+    flex-grow: 1;
+  }
 
   &__header {
     font-weight: 500;

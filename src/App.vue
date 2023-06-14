@@ -1,4 +1,14 @@
 <template>
+  <div
+      class="loader"
+      v-show="showLoader"
+  >
+    <loading
+        class="loader__icon"
+        :active="showLoader"
+        color="#2196F3"
+    />
+  </div>
   <v-app>
     <v-app-bar>
       <div class="container">
@@ -18,14 +28,18 @@ import {mapActions, mapGetters} from 'vuex';
 import UnauthorizedTools from './components/UnauthorizedTools.vue';
 import AuthorizedTools from './components/AuthorizedTools.vue';
 import './global/style/style.css'
+import Loading from 'vue-loading-overlay';
 
 export default {
-  components: {AuthorizedTools, UnauthorizedTools},
+  components: {AuthorizedTools, UnauthorizedTools, Loading},
   name: "App",
   computed: {
     ...mapGetters('checkingAuthorization', {
       isAuthorized: 'isAuthorized'
     }),
+    ...mapGetters('loader', {
+      showLoader: 'show'
+    })
   },
   watch: {
     isAuthorized(value: boolean) {
@@ -54,4 +68,15 @@ export default {
 </script>
 
 <style lang="scss">
+.loader {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__icon {
+
+  }
+}
 </style>

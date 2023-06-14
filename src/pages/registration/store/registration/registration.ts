@@ -21,6 +21,7 @@ export const registration: IStoreModule = {
             } catch (e: AxiosError | any) {
                 commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
                 commit('snackbar/SET_SHOW', true, {root: true});
+                commit('loader/SET_SHOW', false, {root: true});
                 throw new Error(e.response.data.message);
             }
         }
