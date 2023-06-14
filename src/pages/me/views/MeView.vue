@@ -64,7 +64,6 @@
 
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import {Roles} from "@/global/types";
-import {tr} from "vuetify/locale";
 
 export default {
   name: 'MeView',
@@ -90,7 +89,7 @@ export default {
     },
     imageUrl() {
       return this.me.avatar ?
-          `${import.meta.env.VITE_API_USERS_URL}/me/resource?url=${this.me.avatar}`
+          `${import.meta.env.VITE_API_USERS_URL}/resource?url=${this.me.avatar}`
           : '';
     }
   },
