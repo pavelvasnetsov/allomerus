@@ -7,6 +7,10 @@
     >
       Добавление новой работы
     </div>
+    <SketchPreviewCarousel
+        class="add-sketch__carousel"
+        :urls="urls"
+    />
     <SketchFiles
         class="add-sketch__files"
         v-model="files"
@@ -51,10 +55,12 @@ import SketchInfo from "@/pages/add-sketch/components/Sketch/SketchInfo.vue";
 import TagAutocomplete from "@/pages/add-sketch/components/Tag/TagAutocomplete.vue";
 import TagNew from "@/pages/add-sketch/components/Tag/TagNew.vue";
 import {mapActions, mapMutations} from "vuex";
+import SketchPreviewCarousel from "@/pages/add-sketch/components/Sketch/SketchPreviewCarousel.vue";
 
 export default {
   name: "AddSketchView",
   components: {
+    SketchPreviewCarousel,
     TagNew,
     TagAutocomplete,
     SketchInfo,
@@ -66,8 +72,33 @@ export default {
       name: '',
       description: '',
       tags: [],
-      isCreateLoading: false
+      isCreateLoading: false,
+      urls: []
     };
+  },
+  watch: {
+    files(newValue)  {
+      if (newValue || newValue.length) {
+        try {
+          this.urls = [];
+
+          newValue.forEach(file => {
+            let reader = new FileReader();
+
+            reader.onload = (e) => {
+              //@ts-ignore
+              this.urls.push(e.target.result);
+            }
+
+            reader.readAsDataURL(file);
+          })
+        } catch (e) {
+          this.urls = [];
+        }
+      } else {
+        this.urls = [];
+      }
+    }
   },
   methods: {
     ...mapActions('addSketch', {
@@ -123,6 +154,11 @@ export default {
   &__title {
     font-size: 30px;
     margin-bottom: 20px;
+  }
+
+  &__carousel {
+    height: 500px;
+    margin-bottom: 30px;
   }
 
   &__files {
