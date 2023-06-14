@@ -23,7 +23,7 @@
 
 import SketchesContent from "@/pages/sketches/components/sketches/SketchesContent.vue";
 import Filter from "@/pages/sketches/components/filter/Filter.vue";
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import SketchesPagination from "@/pages/sketches/components/sketches/SketchesPagination.vue";
 import {SketchesListQueryParams} from "@/global/api";
 
@@ -47,6 +47,7 @@ export default {
   },
   async mounted() {
     await this.getSketches(this.preparedQueryParams);
+    this.setLoader(false);
   },
   computed: {
     ...mapGetters('sketches', {
@@ -96,6 +97,9 @@ export default {
   methods: {
     ...mapActions('sketches', {
       getSketches: 'getSketches'
+    }),
+    ...mapMutations('loader', {
+      setLoader: 'SET_SHOW'
     }),
     async getFilteredSketches() {
       this.currentPage = 1;

@@ -9,15 +9,16 @@ export const authorization: IStoreModule = {
     getters: {},
     mutations: {},
     actions: {
-        async login({commit}: ContextParam, payload: LoginRequest): Promise<void> {
+        async login({commit}: ContextParam<any>, payload: LoginRequest): Promise<void> {
             try {
                 const response: LoginResponse = await UserService.login(payload);
                 localStorage.setItem("access_token", response.accessToken);
                 localStorage.setItem("refresh_token", response.refreshToken);
-                commit('checkingAuthorization/SET_IS_AUTHORIZED', true, {root: true})
+                commit('checkingAuthorization/SET_IS_AUTHORIZED', true, {root: true});
             } catch (e: AxiosError | any) {
                 commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
                 commit('snackbar/SET_SHOW', true, {root: true});
+                commit('loader/SET_SHOW', false, {root: true});
                 throw new Error(e.response.data.message);
             }
         }
