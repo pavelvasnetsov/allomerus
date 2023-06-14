@@ -6,15 +6,25 @@
         <v-btn
             v-if="isAuthor"
             class="me__sketches-btn"
+            color="blue"
             @click="$router.push('/sketches/my')"
         >мои работы</v-btn>
-        <v-btn class="me__edit-btn">редактировать профиль</v-btn>
+        <v-btn
+            class="me__edit-btn"
+            @click="$emit('change:edit-mode', true)"
+        >редактировать профиль</v-btn>
       </div>
     </div>
     <div class="me__info info">
-      <div class="info__avatar">
-        {{ me.avatar }}
-      </div>
+      <v-img
+          class="info__avatar"
+          v-if="imageUrl"
+          :src="imageUrl"
+          width="200"
+          height="200"
+          cover
+      >
+      </v-img>
       <div class="info__firstName">
         <span class="info__subtitle">Имя:</span> {{ me.firstName }}
       </div>
@@ -39,14 +49,11 @@
 
 <script lang="ts">
 
-import {mapActions, mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 import {Roles} from "@/global/types";
 
 export default {
   name: 'MeView',
-  async mounted() {
-    this.getMeInfo();
-  },
   computed: {
     ...mapGetters('me', {
       me: 'meInfo',
@@ -61,12 +68,12 @@ export default {
     },
     isAuthor() {
       return this.roles.includes(Roles.author);
+    },
+    imageUrl() {
+      return this.me.avatar ?
+          `${import.meta.env.VITE_API_USERS_URL}/me/resource?url=${this.me.avatar}`
+          : '';
     }
-  },
-  methods: {
-    ...mapActions('me', {
-      getMeInfo: 'getMeInfo'
-    })
   }
 };
 </script>
@@ -85,6 +92,7 @@ export default {
 
   &__title {
     font-size: 30px;
+    line-height: 150%;
   }
 
   &__sketches-btn {

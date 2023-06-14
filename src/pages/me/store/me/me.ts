@@ -1,5 +1,5 @@
 import {ContextParam, IStoreModule} from "@/global/types";
-import {User} from "@/global/api";
+import {UpdateRequest, User} from "@/global/api";
 import UserService from "@/global/api/api-services/user-service/usersService";
 import {AxiosError} from "axios";
 
@@ -35,6 +35,18 @@ export const me: IStoreModule = {
         async getMeInfo({ commit }: ContextParam<AuthorizationState>): Promise<void> {
             try {
                 const response: User = await UserService.me();
+
+                commit('SET_ME_INFO', response);
+            } catch (e: AxiosError | any) {
+                commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
+                commit('snackbar/SET_SHOW', true, {root: true});
+                throw new Error(e.response.data.message);
+            }
+        },
+
+        async updateMeInfo({ commit }: ContextParam<AuthorizationState>, payload: UpdateRequest): Promise<void> {
+            try {
+                const response: User = await UserService.update(payload);
 
                 commit('SET_ME_INFO', response);
             } catch (e: AxiosError | any) {
