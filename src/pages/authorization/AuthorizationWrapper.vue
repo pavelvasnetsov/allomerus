@@ -15,18 +15,21 @@ export default {
     return {};
   },
 
-  beforeMount() {
+  created() {
     if (isAuthorized()) {
       this.$router.push('/sketches');
-    } else {
-      this.setIsAuthorized(false);
     }
+    this.setIsAuthorized(isAuthorized());
+    this.setLoader(false);
   },
 
   methods: {
     ...mapMutations('checkingAuthorization', {
       setIsAuthorized: 'SET_IS_AUTHORIZED'
-    })
+    }),
+    ...mapMutations('loader', {
+      setLoader: 'SET_SHOW'
+    }),
   }
 };
 </script>

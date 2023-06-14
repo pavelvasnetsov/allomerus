@@ -62,7 +62,7 @@ class _ContentService {
         return response.data;
     }
 
-    async deleteSketchById(id: number) {
+    async deleteSketchById(id: string) {
         const response: AxiosResponse = await contentServiceInstance.delete(`/sketches/${id}`);
 
         return response.data;

@@ -43,6 +43,7 @@ export default {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
   }
 
   &__empty {

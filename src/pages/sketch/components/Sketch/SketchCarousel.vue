@@ -1,8 +1,8 @@
 <template>
   <v-carousel
-      show-arrows="hover"
       v-if="files.length"
       hide-delimiter-background
+      :show-arrows="urls.length > 1 ? 'hover' : false"
   >
     <v-carousel-item
         v-for="url in urls"
