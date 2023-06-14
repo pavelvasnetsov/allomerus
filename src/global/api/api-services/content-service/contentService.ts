@@ -30,7 +30,7 @@ class _ContentService {
         return response.data;
     }
 
-    async getMySketches(query: MeSketchesListQueryParams): Promise<Sketch[]> {
+    async getMySketches(query: MeSketchesListQueryParams): Promise<SketchesListResponse> {
         const queryParams = toQueryString(query);
 
         const response: AxiosResponse = await contentServiceInstance.get(`/sketches/me${queryParams}`);
