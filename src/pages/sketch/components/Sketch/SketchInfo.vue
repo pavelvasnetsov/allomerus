@@ -1,16 +1,16 @@
 <template>
   <div class="sketch-info">
-    <div class="sketch-info__title">
+    <div class="sketch-info__title" v-if="sketchInfo.name">
       {{ sketchInfo.name }}
     </div>
-    <div class="sketch-info__description">
+    <div class="sketch-info__description" v-if="sketchInfo.description">
       {{ sketchInfo.description }}
     </div>
-    <div class="sketch-info__author-name">
+    <div class="sketch-info__author-name" v-if="sketchInfo.authorName">
       <span class="sketch-info__field">Автор:</span>
       {{ sketchInfo.authorName }}
     </div>
-    <div class="sketch-info__author-email">
+    <div class="sketch-info__author-email" v-if="sketchInfo.authorEmail">
       <span class="sketch-info__field">Электронная почта автора:</span>
       {{ sketchInfo.authorEmail }}
     </div>

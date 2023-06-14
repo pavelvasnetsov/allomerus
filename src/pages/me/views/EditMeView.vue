@@ -71,12 +71,12 @@
       >
       </v-textarea>
       <v-select
+          :items="roles"
           v-model="role"
           class="edit-me__input"
           item-title="title"
           item-value="value"
           label="Роль"
-          :items="roles"
           variant="outlined"
       ></v-select>
     </v-form>
@@ -89,7 +89,7 @@
       </v-btn>
       <v-btn
           @click="$emit('change:edit-mode', false)"
-          color="blue"
+          color="red"
           variant="text"
       >
         Отмена

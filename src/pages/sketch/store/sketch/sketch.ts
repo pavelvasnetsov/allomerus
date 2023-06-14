@@ -49,6 +49,11 @@ export const sketch: IStoreModule = {
         },
         ADD_SKETCH_COMMENT(state: SketchState, payload: Comment): void {
             state.sketchComments.unshift(payload);
+        },
+        DELETE_SKETCH_COMMENT(state: SketchState, payload: string): void {
+            const deletedCommentIndex = state.sketchComments.findIndex((comment: Comment) => comment.id === payload);
+
+            state.sketchComments.splice(deletedCommentIndex, 1);
         }
     },
     actions: {
@@ -61,6 +66,16 @@ export const sketch: IStoreModule = {
                 commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
                 commit('snackbar/SET_SHOW', true, {root: true});
                 commit('loader/SET_SHOW', false, {root: true});
+                throw new Error(e.response.data.message);
+            }
+        },
+
+        async deleteSketch({commit}: ContextParam<SketchState>, sketchId: string) {
+            try {
+                await ContentService.deleteSketchById(sketchId);
+            } catch (e: AxiosError | any) {
+                commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
+                commit('snackbar/SET_SHOW', true, {root: true});
                 throw new Error(e.response.data.message);
             }
         },
@@ -145,6 +160,17 @@ export const sketch: IStoreModule = {
                 commit('snackbar/SET_SHOW', true, {root: true});
                 throw new Error(e.response.data.message);
             }
-        }
+        },
+
+        async deleteSketchComment({commit}: ContextParam<SketchState>, commentId: string) {
+            try {
+                await MetadataService.deleteCommentByCommentId(commentId);
+                commit('DELETE_SKETCH_COMMENT', commentId);
+            } catch (e: AxiosError | any) {
+                commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
+                commit('snackbar/SET_SHOW', true, {root: true});
+                throw new Error(e.response.data.message);
+            }
+        },
     }
 };

@@ -14,7 +14,7 @@
 <script lang="ts">
 import MeView from '@/pages/me/views/MeView.vue';
 import {isAuthorized} from "@/global/utils";
-import {mapActions} from "vuex";
+import {mapActions, mapMutations} from "vuex";
 import EditMeView from "@/pages/me/views/EditMeView.vue";
 
 export default {
@@ -28,10 +28,11 @@ export default {
       editMode:false
     }
   },
-  beforeCreate() {
+  created() {
     if (!isAuthorized()) {
       this.$router.push('/authorization');
     }
+    this.setIsAuthorized(isAuthorized());
   },
   async mounted() {
     await this.getMeInfo();
@@ -39,6 +40,9 @@ export default {
   methods: {
     ...mapActions('me', {
       getMeInfo: 'getMeInfo'
+    }),
+    ...mapMutations('checkingAuthorization', {
+      setIsAuthorized: 'SET_IS_AUTHORIZED'
     })
   }
 };

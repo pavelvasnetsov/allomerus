@@ -8,12 +8,30 @@
         class="sketch__info"
         :sketch-info="sketchInfo"
     />
-    <Likes
-        :liked="thereIsMyLike(userEmail)"
-        :countLikes="countLikes"
-        @add:like="likeSketch(sketchId)"
-        @delete:like="deleteLikeSketch({ sketchId, userEmail })"
-    />
+    <div class="sketch__tools">
+      <Likes
+          :liked="thereIsMyLike(userEmail)"
+          :countLikes="countLikes"
+          @add:like="likeSketch(sketchId)"
+          @delete:like="deleteLikeSketch({ sketchId, userEmail })"
+      />
+      <div
+          class="sketch__btns"
+      >
+        <v-btn
+            color="red"
+            variant="text"
+            v-if="canBeDeleted"
+            @click="deleteSketch"
+            :loading="deleteSketchLoader"
+        >
+          Удалить работу
+          <template v-slot:loader>
+            <v-progress-circular indeterminate></v-progress-circular>
+          </template>
+        </v-btn>
+      </div>
+    </div>
 
     <div class="sketch__comments-header">
       Комментарии
@@ -26,6 +44,9 @@
 
     <CommentsList
         :comments="sketchComments"
+        :me="userEmail"
+        :delete-loader="deleteSketchCommentLoader"
+        @delete:comment="deleteSketchComment"
     />
 <!--    <ReviewsList/>-->
 <!--    <ReviewsForm/>-->
@@ -47,7 +68,9 @@ export default {
   components: {ReviewsList, CommentsForm, CommentsList, Likes, SketchInfo, SketchCarousel, ReviewsForm},
   data() {
     return {
-      commentText: ''
+      commentText: '',
+      deleteSketchLoader: false,
+      deleteSketchCommentLoader: false
     }
   },
   computed: {
@@ -65,6 +88,9 @@ export default {
     },
     sketchId() {
       return this.$route.params.sketchId;
+    },
+    canBeDeleted() {
+      return this.sketchInfo.authorEmail === this.userEmail;
     }
   },
   async mounted() {
@@ -73,9 +99,10 @@ export default {
       await this.getSketch(this.$route.params.sketchId);
       await this.getSketchLikes(this.$route.params.sketchId);
       await this.getSketchComments(this.$route.params.sketchId);
-      this.setLoader(false);
     } catch (e) {
       console.error(e);
+      await this.$router.push('/sketches');
+    } finally {
       this.setLoader(false);
     }
   },
@@ -86,10 +113,16 @@ export default {
       deleteLikeSketch: 'deleteLikeSketch',
       createSketchComment: 'createSketchComment',
       getSketchComments: 'getSketchComments',
-      getSketch: 'getSketch'
+      getSketch: 'getSketch',
+      deleteSketchAction: 'deleteSketch',
+      deleteSketchCommentAction: 'deleteSketchComment',
     }),
     ...mapMutations('loader', {
       setLoader: 'SET_SHOW'
+    }),
+    ...mapMutations('snackbar', {
+      setShow: 'SET_SHOW',
+      setMessage: 'SET_MESSAGE'
     }),
     async addComment(form) {
       const {valid} = await form.validate();
@@ -104,6 +137,39 @@ export default {
 
         this.commentText = '';
         await form.reset();
+      }
+    },
+    async deleteSketch() {
+      try {
+        this.deleteSketchLoader = true;
+
+        await this.deleteSketchAction(this.sketchId);
+        await this.$router.push('/sketches');
+        this.setMessage('Работа успешно удалена');
+        this.setShow({
+          show: true,
+          color: 'green'
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.deleteSketchLoader = false;
+      }
+    },
+    async deleteSketchComment(commentId) {
+      try {
+        this.deleteSketchCommentLoader = true;
+
+        await this.deleteSketchCommentAction(commentId);
+        this.setMessage('Комментарий успешно удален');
+        this.setShow({
+          show: true,
+          color: 'green'
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.deleteSketchCommentLoader = false;
       }
     }
   }
@@ -122,6 +188,11 @@ export default {
   }
 
   &__info {
+  }
+
+  &__tools {
+    display: flex;
+    justify-content: space-between;
   }
 
   &__comments-header {

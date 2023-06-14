@@ -60,6 +60,21 @@ export const me: IStoreModule = {
                 commit('loader/SET_SHOW', false, {root: true});
                 throw new Error(e.response.data.message);
             }
+        },
+
+        async deleteMe({ commit }: ContextParam<AuthorizationState>) {
+            try {
+                await UserService.deleteMe();
+
+                commit('checkingAuthorization/SET_IS_AUTHORIZED', false, {root: true});
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+            } catch (e: AxiosError | any) {
+                commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
+                commit('snackbar/SET_SHOW', true, {root: true});
+                commit('loader/SET_SHOW', false, {root: true});
+                throw new Error(e.response.data.message);
+            }
         }
     }
 };
