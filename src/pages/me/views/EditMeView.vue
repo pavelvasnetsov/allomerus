@@ -92,7 +92,7 @@
           color="blue"
           variant="text"
       >
-        Обратно
+        Отмена
       </v-btn>
     </div>
   </div>
