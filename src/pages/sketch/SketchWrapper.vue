@@ -8,19 +8,7 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "SketchWrapper",
-  components: {SketchView},
-  async mounted() {
-    try {
-      await this.getSketch(this.$route.params.sketchId);
-    } catch (e) {
-      console.error(e);
-    }
-  },
-  methods: {
-    ...mapActions('sketch', {
-      getSketch: 'getSketch'
-    })
-  }
+  components: {SketchView}
 };
 </script>
 

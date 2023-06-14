@@ -27,13 +27,16 @@ export const mySketches: IStoreModule = {
     actions: {
         async getMySketches({commit}: ContextParam<MySketchesState>, query: SketchesListQueryParams = {}): Promise<void> {
             try {
+                commit('loader/SET_SHOW', true, {root: true});
                 const data: SketchesListResponse = await ContentService.getMySketches(query);
 
                 commit('SET_SKETCHES', data.data);
                 commit('SET_SKETCHES_COUNT', data.count);
+                commit('loader/SET_SHOW', false, {root: true});
             } catch (e: AxiosError | any) {
                 commit('snackbar/SET_MESSAGE', e.response.data.message, {root: true});
                 commit('snackbar/SET_SHOW', true, {root: true});
+                commit('loader/SET_SHOW', false, {root: true});
                 throw new Error(e.response.data.message);
             }
         }

@@ -58,11 +58,15 @@ export default {
     ...mapMutations('checkingAuthorization', {
       setIsAuthorized: 'SET_IS_AUTHORIZED'
     }),
+    ...mapMutations('loader', {
+      setLoader: 'SET_SHOW'
+    }),
     async loginRequest() {
       //@ts-ignore
       const {valid} = await this.$refs.loginForm.validate();
 
       if (valid) {
+        this.setLoader(true);
         await this.loginAction({login: this.login, password: this.password});
         await this.getMeInfo();
       }

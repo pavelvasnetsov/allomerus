@@ -35,7 +35,9 @@ class _UserService {
         form.append('lastName', payload.lastName);
         form.append('bio', payload.bio);
         form.append('roles', payload.roles[0]);
-        form.append('avatar', payload.avatar);
+        if (payload.avatar) {
+            form.append('avatar', payload.avatar);
+        }
 
         const response: AxiosResponse = await userServiceInstance.post('/update', form);
 

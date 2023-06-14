@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import SketchCarousel from "@/pages/sketch/components/Sketch/SketchCarousel.vue";
 import SketchInfo from "@/pages/sketch/components/Sketch/SketchInfo.vue";
 import Likes from "@/pages/sketch/components/Likes/Likes.vue";
@@ -68,8 +68,16 @@ export default {
     }
   },
   async mounted() {
-    await this.getSketchLikes(this.$route.params.sketchId);
-    await this.getSketchComments(this.$route.params.sketchId);
+    try {
+      this.setLoader(true);
+      await this.getSketch(this.$route.params.sketchId);
+      await this.getSketchLikes(this.$route.params.sketchId);
+      await this.getSketchComments(this.$route.params.sketchId);
+      this.setLoader(false);
+    } catch (e) {
+      console.error(e);
+      this.setLoader(false);
+    }
   },
   methods: {
     ...mapActions('sketch', {
@@ -77,7 +85,11 @@ export default {
       likeSketch: 'likeSketch',
       deleteLikeSketch: 'deleteLikeSketch',
       createSketchComment: 'createSketchComment',
-      getSketchComments: 'getSketchComments'
+      getSketchComments: 'getSketchComments',
+      getSketch: 'getSketch'
+    }),
+    ...mapMutations('loader', {
+      setLoader: 'SET_SHOW'
     }),
     async addComment(form) {
       const {valid} = await form.validate();

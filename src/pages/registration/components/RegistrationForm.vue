@@ -82,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import {mapActions} from 'vuex';
+import {mapActions, mapMutations} from 'vuex';
 import RegistrationTools from './RegistrationTools.vue';
 //@ts-ignore
 import {isAuthorized} from '@/global/utils';
@@ -134,11 +134,16 @@ export default {
     ...mapActions('me', {
       getMeInfo: 'getMeInfo'
     }),
+    ...mapMutations('loader', {
+      setLoader: 'SET_SHOW'
+    }),
     async registrationRequest() {
       //@ts-ignore
       const {valid} = await this.$refs.registrationForm.validate();
 
       if (valid) {
+        this.setLoader(true);
+
         await this.registrationAction({
           firstName: this.firstName,
           lastName: this.lastName,

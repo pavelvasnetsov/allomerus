@@ -177,7 +177,7 @@ export default {
             lastName: this.lastName,
             bio: this.bio,
             roles: [this.role],
-            avatar: this.avatar[0]
+            avatar: this.avatar?.[0]
           });
 
           this.setMessage('Работа успешно добавлена');
