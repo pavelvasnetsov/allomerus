@@ -6,6 +6,7 @@
         label="Электронная почта"
         :rules="emailRules"
         hide-details="auto"
+        variant="outlined"
     ></v-text-field>
     <v-text-field
         class="auth__input"
@@ -16,6 +17,7 @@
         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
         :type="!show ? 'text' : 'password'"
         @click:append="show = !show"
+        variant="outlined"
     ></v-text-field>
     <AuthorizationTools/>
   </v-form>
@@ -50,6 +52,9 @@ export default {
     ...mapActions('authorization', {
       loginAction: 'login'
     }),
+    ...mapActions('me', {
+      getMeInfo: 'getMeInfo'
+    }),
     ...mapMutations('checkingAuthorization', {
       setIsAuthorized: 'SET_IS_AUTHORIZED'
     }),
@@ -59,6 +64,7 @@ export default {
 
       if (valid) {
         await this.loginAction({login: this.login, password: this.password});
+        await this.getMeInfo();
       }
     }
   },

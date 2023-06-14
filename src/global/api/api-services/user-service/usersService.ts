@@ -27,8 +27,17 @@ class _UserService {
         return response.data;
     }
 
-    async update(body: UpdateRequest): Promise<UpdateResponse> {
-        const response: AxiosResponse = await userServiceInstance.post('/update', body);
+    async update(payload: UpdateRequest): Promise<UpdateResponse> {
+        const form: FormData = new FormData();
+
+        form.append('username', payload.username);
+        form.append('firstName', payload.firstName);
+        form.append('lastName', payload.lastName);
+        form.append('bio', payload.bio);
+        form.append('roles', payload.roles[0]);
+        form.append('avatar', payload.avatar);
+
+        const response: AxiosResponse = await userServiceInstance.post('/update', form);
 
         return response.data;
     }

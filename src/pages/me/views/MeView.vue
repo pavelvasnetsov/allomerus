@@ -1,13 +1,30 @@
 <template>
   <div class="container me">
     <div class="me__header">
-      <div class="me__title">Личный кабинет</div>
-      <v-btn class="me__edit-btn">редактировать</v-btn>
+      <div class="me__title">Мой аккаунт</div>
+      <div class="me__tools">
+        <v-btn
+            v-if="isAuthor"
+            class="me__sketches-btn"
+            color="blue"
+            @click="$router.push('/sketches/my')"
+        >мои работы</v-btn>
+        <v-btn
+            class="me__edit-btn"
+            @click="$emit('change:edit-mode', true)"
+        >редактировать профиль</v-btn>
+      </div>
     </div>
     <div class="me__info info">
-      <div class="info__avatar">
-        {{ me.avatar }}
-      </div>
+      <v-img
+          class="info__avatar"
+          v-if="imageUrl"
+          :src="imageUrl"
+          width="200"
+          height="200"
+          cover
+      >
+      </v-img>
       <div class="info__firstName">
         <span class="info__subtitle">Имя:</span> {{ me.firstName }}
       </div>
@@ -23,28 +40,40 @@
       <div class="info__bio">
         <span class="info__subtitle">Обо мне:</span> {{ me.bio }}
       </div>
+      <div class="info__role">
+        <span class="info__subtitle">Моя роль:</span> {{ role }}
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 
-import {mapActions, mapGetters} from "vuex";
+import {mapGetters} from "vuex";
+import {Roles} from "@/global/types";
 
 export default {
   name: 'MeView',
-  async mounted() {
-    this.getMeInfo();
-  },
   computed: {
     ...mapGetters('me', {
-      me: 'meInfo'
-    })
-  },
-  methods: {
-    ...mapActions('me', {
-      getMeInfo: 'getMeInfo'
-    })
+      me: 'meInfo',
+      roles: 'roles',
+    }),
+    role() {
+      if (this.roles.includes(Roles.author)) {
+        return 'Автор';
+      }
+
+      return 'Пользователь'
+    },
+    isAuthor() {
+      return this.roles.includes(Roles.author);
+    },
+    imageUrl() {
+      return this.me.avatar ?
+          `${import.meta.env.VITE_API_USERS_URL}/me/resource?url=${this.me.avatar}`
+          : '';
+    }
   }
 };
 </script>
@@ -63,6 +92,11 @@ export default {
 
   &__title {
     font-size: 30px;
+    line-height: 150%;
+  }
+
+  &__sketches-btn {
+    margin-right: 10px;
   }
 
   &__edit-btn {

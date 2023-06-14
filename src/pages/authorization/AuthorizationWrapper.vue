@@ -5,6 +5,7 @@
 <script lang="ts">
 import AuthorizationView from './views/AuthorizationView.vue';
 import {isAuthorized} from "@/global/utils";
+import {mapMutations} from "vuex";
 
 export default {
   components: {AuthorizationView},
@@ -14,10 +15,18 @@ export default {
     return {};
   },
 
-  beforeCreate() {
+  beforeMount() {
     if (isAuthorized()) {
       this.$router.push('/sketches');
+    } else {
+      this.setIsAuthorized(false);
     }
+  },
+
+  methods: {
+    ...mapMutations('checkingAuthorization', {
+      setIsAuthorized: 'SET_IS_AUTHORIZED'
+    })
   }
 };
 </script>

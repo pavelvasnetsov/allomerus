@@ -13,6 +13,7 @@
     "axios": "^1.4.0",
     "roboto-fontface": "*",
     "vue": "^3.2.47",
+    "vue-components-ide-helper": "^1.1.0",
     "vue-router": "^4.1.6",
     "vuetify": "^3.2.1",
     "vuex": "^4.1.0",

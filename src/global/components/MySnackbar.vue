@@ -7,7 +7,7 @@
     {{ message }}
     <template v-slot:actions>
       <v-btn
-          color="red"
+          :color="color"
           variant="text"
           @click="setShow(false)"
       >
@@ -25,7 +25,8 @@ export default {
   computed: {
     ...mapGetters('snackbar', {
       message: 'message',
-      show: 'show'
+      show: 'show',
+      color: 'color'
     })
   },
   methods: {

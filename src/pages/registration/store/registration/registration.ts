@@ -8,7 +8,7 @@ export const registration: IStoreModule = {
     getters: {},
     mutations: {},
     actions: {
-        async registration({dispatch, commit}: ContextParam, registrationRequest: RegisterRequest): Promise<void> {
+        async registration({dispatch, commit}: ContextParam<any>, registrationRequest: RegisterRequest): Promise<void> {
             try {
                 await UserService.register(registrationRequest);
 

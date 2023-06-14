@@ -1,3 +1,5 @@
+import {Sketch} from "@/global/api";
+
 export interface UpdateSketchPayload {
     access: string;
     tags: string[];
@@ -20,6 +22,11 @@ export interface SketchesListQueryParams {
     sort?: string;
     tags?: string[];
     name?: string[];
+}
+
+export interface SketchesListResponse {
+    data: Sketch[];
+    count: number;
 }
 
 export interface MeSketchesListQueryParams {

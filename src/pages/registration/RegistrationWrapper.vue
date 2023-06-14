@@ -7,15 +7,24 @@
 <script lang="ts">
 import RegistrationView from './view/RegistrationView.vue';
 import {isAuthorized} from "@/global/utils";
+import {mapMutations} from "vuex";
 
 export default {
   components: {RegistrationView},
   name: 'RegistrationWrapper',
 
-  beforeCreate() {
+  beforeMount() {
     if (isAuthorized()) {
       this.$router.push('/sketches');
+    } else {
+      this.setIsAuthorized(false);
     }
+  },
+
+  methods: {
+    ...mapMutations('checkingAuthorization', {
+      setIsAuthorized: 'SET_IS_AUTHORIZED'
+    })
   }
 };
 </script>

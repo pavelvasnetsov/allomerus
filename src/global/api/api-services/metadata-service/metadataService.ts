@@ -40,7 +40,7 @@ class _MetadataService {
     async getReviewsCountBySketchId(query: ReviewQueryParams): Promise<CommentCount[]> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await metadataServiceInstance.get(`/review/count?${queryParams}`);
+        const response: AxiosResponse = await metadataServiceInstance.get(`/review/count${queryParams}`);
 
         return response.data;
     }
@@ -48,7 +48,7 @@ class _MetadataService {
     async deleteReviewsBySketchId(query: ReviewQueryParams): Promise<string> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await metadataServiceInstance.delete(`/review?${queryParams}`);
+        const response: AxiosResponse = await metadataServiceInstance.delete(`/review${queryParams}`);
 
         return response.data;
     }
@@ -56,7 +56,7 @@ class _MetadataService {
     async getLikesBySketchId(query: LikeQueryParams): Promise<Like[]> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await metadataServiceInstance.get(`/like?${queryParams}`);
+        const response: AxiosResponse = await metadataServiceInstance.get(`/like${queryParams}`);
 
         return response.data;
     }
@@ -64,7 +64,7 @@ class _MetadataService {
     async getLikesCountBySketchId(query: LikeQueryParams): Promise<LikeCount[]> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await metadataServiceInstance.get(`/like/count?${queryParams}`);
+        const response: AxiosResponse = await metadataServiceInstance.get(`/like/count${queryParams}`);
 
         return response.data;
     }
@@ -72,7 +72,7 @@ class _MetadataService {
     async createLikesBySketchId(query: LikeQueryParams): Promise<Like[]> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await metadataServiceInstance.post(`/like?${queryParams}`);
+        const response: AxiosResponse = await metadataServiceInstance.post(`/like${queryParams}`);
 
         return response.data;
     }
@@ -80,7 +80,7 @@ class _MetadataService {
     async deleteLikesBySketchId(query: LikeQueryParams): Promise<string> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await metadataServiceInstance.delete(`/like?${queryParams}`);
+        const response: AxiosResponse = await metadataServiceInstance.delete(`/like${queryParams}`);
 
         return response.data;
     }
@@ -112,7 +112,7 @@ class _MetadataService {
     async getCommentsCountBySketchId(query: CommentQueryParams): Promise<CommentCount[]> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await metadataServiceInstance.get(`/comment/count?${queryParams}`);
+        const response: AxiosResponse = await metadataServiceInstance.get(`/comment/count${queryParams}`);
 
         return response.data;
     }

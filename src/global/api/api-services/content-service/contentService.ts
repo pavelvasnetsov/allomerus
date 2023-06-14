@@ -8,7 +8,7 @@ import {
     SketchesListQueryParams,
     MeSketchesListQueryParams,
     CreateTagPayload,
-    UpdateTagPayload
+    UpdateTagPayload, SketchesListResponse
 } from './types';
 import { toQueryString } from "@/global/api/api-services/utils/toQueryString";
 
@@ -16,15 +16,15 @@ const API_URL = import.meta.env.VITE_API_CONTENT_URL;
 
 const contentServiceInstance: AxiosInstance = createApiInstance(API_URL);
 class _ContentService {
-    async getSketches(query: SketchesListQueryParams): Promise<Sketch[]> {
+    async getSketches(query: SketchesListQueryParams): Promise<SketchesListResponse> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await contentServiceInstance.get(`/sketches?${queryParams}`);
+        const response: AxiosResponse = await contentServiceInstance.get(`/sketches${queryParams}`);
 
         return response.data;
     }
 
-    async getSketchById(id: number): Promise<Sketch> {
+    async getSketchById(id: string): Promise<Sketch> {
         const response: AxiosResponse = await contentServiceInstance.get(`/sketches/${id}`);
 
         return response.data;
@@ -33,13 +33,25 @@ class _ContentService {
     async getMySketches(query: MeSketchesListQueryParams): Promise<Sketch[]> {
         const queryParams = toQueryString(query);
 
-        const response: AxiosResponse = await contentServiceInstance.get(`/sketches/me?${queryParams}`);
+        const response: AxiosResponse = await contentServiceInstance.get(`/sketches/me${queryParams}`);
 
         return response.data;
     }
 
     async createSketch(payload: CreateSketchPayload): Promise<Sketch> {
-        const response: AxiosResponse = await contentServiceInstance.post(`/sketches`, payload);
+        const form: FormData = new FormData();
+
+        form.append('access', payload.access);
+        payload.tags.forEach(tag => {
+            form.append('tags', tag);
+        });
+        form.append('name', payload.name);
+        form.append('description', payload.description);
+        payload.files.forEach(file => {
+            form.append('files', file);
+        })
+
+        const response: AxiosResponse = await contentServiceInstance.post(`/sketches`, form);
 
         return response.data;
     }

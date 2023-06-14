@@ -1,7 +1,8 @@
 <template>
   <div class="auth-btns">
     <v-btn
-        color="green"
+        color="blue"
+        variant="text"
         @click="$router.push('/registration')"
     >К регистрации
     </v-btn>
